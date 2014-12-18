@@ -1,0 +1,15 @@
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\GreenBoxService.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\GreenBoxService.pdb
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\EntityFramework.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\EntityFramework.SqlServer.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\GreenStore.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\Models.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\Repository.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\GreenStore.pdb
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\Models.pdb
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\Repository.pdb
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\EntityFramework.xml
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\bin\EntityFramework.SqlServer.xml
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.csprojResolveAssemblyReference.cache
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.dll
+C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.pdb

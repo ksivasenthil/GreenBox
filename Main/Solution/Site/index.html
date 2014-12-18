@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="Scripts/jquery-1.11.1.min.js"></script>
+    <script src="Scripts/html5shiv.js"></script>
+    <script src="Scripts/respond.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Style/bootstrap.min.css" rel="stylesheet" />
+    <link href="Style/Styles.css" rel="stylesheet" />
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>-->
+    <script src="Scripts/json2xml.js"></script>
+    <script type="text/javascript">
+
+        var directionsDisplay;
+        var directionsService = new google.maps.DirectionsService();
+        var map;
+        var totalCO2 = 0;
+        var emissionValue = 0;
+        var directions = "";
+        var individualLeg=[];
+
+        function initialize() {
+            directionsDisplay = new google.maps.DirectionsRenderer();
+            var chennai = new google.maps.LatLng(13.850033, 80.6500523);
+            var mapOptions = {
+                zoom: 7,
+                center: chennai
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            directionsDisplay.setMap(map);
+            directionsDisplay.setPanel(document.getElementById('directions'));
+            document.getElementById('init').innerHTML = "<blockquote>Please enter Start location and end location</blockquote>";
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        function codeAddress() {
+            var from = document.getElementById("StartLocation").value;
+            var to = document.getElementById("Endlocation").value;
+            PlotPoints(from, to);
+            document.getElementById('init').innerHTML = "<blockquote>From :<b>" + from + "</b> to:<b>" + to + "</b></blockquote>";
+        }
+
+        function PlotPoints(from, to) {
+            var request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            var instructions;
+            directionsService.route(request, function (result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directions = JSON.stringify(result.routes[0].legs[0]);
+                    var obj = JSON.stringify(result.routes[0].legs[0]);
+                    var parsedJson = $.parseJSON(obj);
+
+                    //var parsedXML = $.parseXML("https://maps.googleapis.com/maps/api/directions/xml?origin=" + from + "&destination=" + to + "&key=AIzaSyAnyHG-JUH6TlTL1F3Oi_CemFIlCXFCro0");
+                    var legDistance=[];
+                    //sendJSON(obj);
+                    //var getJson = getJSONFromService();
+                    $.each(parsedJson, function (index, value) {
+                        if (index == "steps") {
+                            $.each(value, function (index, value1) {
+                                value1.instructions = "<div style=\"margin-left:4px;display:block;height:80px;overflow:-moz-scrollbars-none;\">" + value1.instructions + "</div>";
+                                legDistance[index] = value1.distance["text"];
+                                //getCO2Emissions($('#VehicleSubtype').val(), value1.distance["text"]);
+                                //totalCO2[index] = getCO2Emissions(value1.distance["text"]);
+                                //result.routes[0].legs[0].steps[index].instructions = value1.instructions;
+                            });
+                        }
+                    });
+                    getCO2Emissions(result, $('#ddlCategory').val(), legDistance);
+                    //$.each(getJson, function (index, value) {
+                    //    if (index == "steps") {
+                    //        $.each(value, function (index, value1) {
+                    //            //replace ~ symbol from response
+                    //            value1.instructions = "<div style=\"margin-left:4px;display:block;height:80px;overflow:-moz-scrollbars-none;\">" + value1.instructions + "</div>";
+                    //            //value1.instructions = getCO2Emissions(value1.distance["text"]) + value1.instructions;
+                    //            ////totalCO2[index] = getCO2Emissions(value1.distance["text"]);
+                    //            //result.routes[0].legs[0].steps[index].instructions = value1.instructions;
+                    //        });
+                    //    }
+                    //});
+
+                    
+                }
+            });
+        }
+
+        //total distance, from, to, leg distance, type, subtype
+        function getCO2Emissions(result,vehicleSubType, legDistance) {
+            //var _distanceAsArray = legDistance.split(" ");
+            var _multiplicationFactor=1;
+            var _newArray = "";
+            var _test = legDistance.join();
+            _test = _test.replace(/ /g, ',');
+            _test = _test.split(",");
+            $.each(_test, function (index, value) {
+                if (index % 2 == 0) {
+                    if (_test[index + 1] == "m") {
+                        _multiplicationFactor = 0.001;
+                    }
+                    _newArray += "<decimal xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\">" + value*_multiplicationFactor + "</decimal>";
+                }
+            });
+            $.when(CallService(result,vehicleSubType, _newArray,successCallback)).done(function (val) {
+                emissionValue = val;
+                //console.log("val:" + emissionValue);
+                //console.log(emissionValue);
+            });
+            //$.ajaxComplete(function () {
+            //    var currentValue = parseFloat(emissionValue);
+            //    console.log(emissionValue);
+            //    console.log("A" + currentValue);
+            //    totalCO2 += currentValue;
+            //    return "<div class=\"circleForSteps\"><b>" + currentValue + "</b></div>";
+            //});
+        }
+        function successCallback(result,ServerResponse)
+        {
+            var distances = [];
+
+            $.each($(ServerResponse).children(), function (index, value) {
+                $.each($(value).children(), function (index1, value1) {
+
+                    distances.push($(value1).text());
+                    
+                    console.log("console:" + $(value1).text());
+                    console.log("A");
+                });
+            });
+
+            directions = JSON.stringify(result.routes[0].legs[0]);
+            var obj = JSON.stringify(result.routes[0].legs[0]);
+            var parsedJson = $.parseJSON(obj);
+
+            var legDistance = [];
+            $.each(parsedJson, function (index, value) {
+                if (index == "steps") {
+                    $.each(value, function (index1, value1) {
+                        value1.instructions = "<div style=\"margin-left:4px;display:block;height:80px;overflow:-moz-scrollbars-none;\">" + value1.instructions + "</div>";
+                        result.routes[0].legs[0].steps[index1].instructions = "<div class=\"circleForSteps\"><b>" + parseFloat(distances[index1]).toFixed(2) + "</b></div>" + value1.instructions;
+                        totalCO2 = parseFloat(totalCO2) + parseFloat(parseFloat(distances[index1]).toFixed(2));
+                    });
+                }
+            });
+
+
+            document.getElementById('TotalCO2').innerHTML = parseFloat(totalCO2).toFixed(2);
+            directionsDisplay.setDirections(result);
+        }
+        function sendJSON(JSONData) {
+            debugger;
+            $.ajax({
+                url: 'http://localhost:49438/index.html',
+                type: 'POST',
+                data: JSONData,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: false,
+                success: function (msg) {
+                    alert(msg);
+                }
+            });
+        }
+
+        function getJSONFromService() {
+            //consume the response
+            $.ajax({
+                dataType: "json",
+                url: "http://localhost:49438/index.html",
+                data: data,
+                success: success
+            });
+        }
+
+        function GetSubTypes() {
+            //var Type = document.getElementById('VehicleType').value;
+            var Type = $("[id$=VehicleType]").val();
+            //alert(Type);
+            if (Type == 0) {
+                alert("Please select vehicel type.");
+                document.getElementById('VehicleType').focus;
+                return false;
+            }
+            else {
+                PopulateSubTypes(Type);
+            }
+        }
+        function PopulateSubTypes(VehicleType) {
+            if (!$("#ddlCategory").empty()) {
+                $("#ddlCategory").empty();
+            }
+            if (VehicleType == "A5549AA3-F0C0-474F-B9E2-19BAE4CB1060") {
+                var Option1 = "<option value='" + "B9D54ADB-3017-457A-98B2-137945047659" + "'>Log carrier</option>";
+                var Option2 = "<option value='" + "B2E7842F-A2D0-4CF5-9B3C-4D86AFF27D6B" + "'>Concrete transport truck</option>";
+                var Option3 = "<option value='" + "D58D0649-936C-4ACC-AE53-62AB0FE05BE5" + "'>Refrigerator truck</option>";
+                var Option4 = "<option value='" + "BEA5F1C6-575F-4B61-8348-69A55360F6D3" + "'>Garbage truck</option>";
+                var Option5 = "<option value='" + "5D501016-3D3F-46E2-B9C4-B55AC600BA51" + "'>Dump truck</option>";
+                var Option6 = "<option value='" + "055EB488-BAB2-4277-A13B-BE7C329021F6" + "'>Semi-trailer truck</option>";
+                var Option7 = "<option value='" + "49B329B0-A16F-45EA-9393-C8F07B34C283" + "'>Ballast tractor</option>";
+                var Option8 = "<option value='" + "F7374721-6E2C-4F88-8A7E-ECBC56831A9E" + "'>Crane truck</option>";
+                var Option9 = "<option value='" + "C4DD07BE-CC8D-48C9-B751-F2AF50740841" + "'>Tank truck</option>";
+                $("#ddlCategory").append(Option1);
+                $("#ddlCategory").append(Option2);
+                $("#ddlCategory").append(Option3);
+                $("#ddlCategory").append(Option4);
+                $("#ddlCategory").append(Option5);
+                $("#ddlCategory").append(Option6);
+                $("#ddlCategory").append(Option7);
+                $("#ddlCategory").append(Option8);
+                $("#ddlCategory").append(Option9);
+            }
+            else if (VehicleType == "A2FE7049-8691-4C89-964F-9D106EDC7B6F") {
+                var Option1 = "<option value='" + "BA71CF2F-887C-4686-A7CF-2045B3A5A94C" + "'>Tow truck</option>";
+                var Option2 = "<option value='" + "7C1B50DE-41D0-4EFD-A092-660063FB7006" + "'>Panel van</option>";
+                var Option3 = "<option value='" + "C350DC06-FAA9-4228-BD82-6B77E25DE090" + "'>Sport utility vehicle</option>";
+                var Option4 = "<option value='" + "171754C2-068D-47ED-8ABA-7A6C42B96596" + "'>Minivan</option>";
+                var Option5 = "<option value='" + "B99774B7-2B86-496D-AB9A-A160205CC981" + "'>Panel truck</option>";
+                var Option6 = "<option value='" + "30502B3D-EBBD-4BC3-8E82-DBEC8DDFFEC5" + "'>Canopy express</option>";
+                var Option7 = "<option value='" + "BA9C7499-12D1-457D-9FFB-DEAC3C325806" + "'>Sedan delivery</option>";
+                var Option8 = "<option value='" + "6499E61E-7606-4D6A-B608-E39DCB6D8481" + "'>Cab-forward</option>";
+                var Option9 = "<option value='" + "1375F34D4-011B-463B-9ABC-E55D60ECF0E3" + "'>Pickup truck</option>";
+                $("#ddlCategory").append(Option1);
+                $("#ddlCategory").append(Option2);
+                $("#ddlCategory").append(Option3);
+                $("#ddlCategory").append(Option4);
+                $("#ddlCategory").append(Option5);
+                $("#ddlCategory").append(Option6);
+                $("#ddlCategory").append(Option7);
+                $("#ddlCategory").append(Option8);
+                $("#ddlCategory").append(Option9);
+            }
+            else if (VehicleType == "7FE47AE9-6F07-4407-9F4F-BC1BAF26D816") {
+                var newOption = "<option value='" + "619AF127-40CF-440E-8AD9-18FC9A9CCB49" + "'>Mini Truck</option>";
+                $("#ddlCategory").append(newOption);
+            }
+            else if (VehicleType == "399DF012-42C3-4795-9165-D451AF4BFB96") {
+                var newOption = "<option value='" + "C198CA4A-818E-45F6-B1D8-8C73AB565814" + "'>Heavy Hauler</option>";
+                $("#ddlCategory").append(newOption);
+            }
+            else if (VehicleType == "2795AB64-34BC-4F2A-AEB7-F010BC9C6A74") {
+                var Option1 = "<option value='" + "12F489F0-5929-48B0-808F-11E2A85449A0" + "'>Flatbed truck</option>";
+                var Option2 = "<option value='" + "1F9BF67D-FC32-46C5-895D-25C86EFAB476" + "'>Bottler</option>";
+                var Option3 = "<option value='" + "6C472ED5-0020-4884-B49D-4A8D1D4C0F70" + "'>Firetruck</option>";
+                var Option4 = "<option value='" + "8CA4F6A7-382C-4C5E-BE6D-6D3CE7D69922" + "'>Medium Standard Truck</option>";
+                var Option5 = "<option value='" + "3B9C868A-94D0-46D1-B07B-71574608CC7C" + "'>Multi-Stop truck</option>";
+                var Option6 = "<option value='" + "BE452609-1B4B-4157-A1E3-A7D6578D9697" + "'>Motorhome</option>";
+                var Option7 = "<option value='" + "78EA04E7-E3DC-44C0-BAEB-AD5961211606" + "'>Platform truck</option>";
+                var Option8 = "<option value='" + "BF4D0888-AA9C-473E-88F2-B1B1744258D3" + "'>Van</option>";
+                var Option9 = "<option value='" + "26B86C98-A9AB-45AB-AF18-B774EDED86BF" + "'>Cutaway van chassis</option>";
+                var Option10 = "<option value='" + "53E338EA-D216-450C-B26D-E53FB4A3948C" + "'>Medium Duty Truck</option>";
+                var Option11 = "<option value='" + "94645D3E-7841-4331-9788-F238FE3F7D08" + "'>Box truck</option>";
+                var Option12 = "<option value='" + "9268BFA1-F753-4850-AB2D-F268AF921F11" + "'>Delivery truck</option>";
+                $("#ddlCategory").append(Option1);
+                $("#ddlCategory").append(Option2);
+                $("#ddlCategory").append(Option3);
+                $("#ddlCategory").append(Option4);
+                $("#ddlCategory").append(Option5);
+                $("#ddlCategory").append(Option6);
+                $("#ddlCategory").append(Option7);
+                $("#ddlCategory").append(Option8);
+                $("#ddlCategory").append(Option9);
+                $("#ddlCategory").append(Option10);
+                $("#ddlCategory").append(Option11);
+                $("#ddlCategory").append(Option12);
+            }
+            else { }
+        }
+
+        function CallService(result,vehicleSubType, legDistance,callback) {
+            $.ajax({
+                type: "POST", //GET or POST or PUT or DELETE verb
+                url: "http://localhost:51745/GreenBox.svc/GetEmission", // Location of the service
+                //data: "{\"vehicleSubType\":\"12F489F0-5929-48B0-808F-11E2A85449A0\",\"distance\":101}", //Data sent to server
+                data: "<GetEmissionRequest xmlns=\"http://schemas.datacontract.org/2004/07/GreenBoxService\">  <Distance>" + legDistance + "</Distance>  <VehicleSubTypeId>" + vehicleSubType + "</VehicleSubTypeId><MapXml>[data]</MapXml></GetEmissionRequest>",
+                contentType: "application/xml",
+                dataType: "xml",
+                success: function (response) {//On Successfull service call
+                    $xmlObject = $(response);
+                    callback(result, $xmlObject);
+                    
+                    //emissionValue = $xmlObject.find('decimal').text();
+                },
+                //complete: function (response) {
+
+                //    $xmlObject = $(response);
+                //    console.log("complete:"+$xmlObject.find('decimal').text());
+                //    return $xmlObject.find('decimal').text();
+                //},
+                error: ServiceFailed// When Service call fails
+            })
+        }
+
+        function ServiceFailed(result) {
+            alert('Service call failed: ' + result.status + '' + result.statusText);
+            Type = null;
+            Url = null;
+            Data = null;
+            ContentType = null;
+            DataType = null;
+            ProcessData = null;
+        }
+
+        function ServiceSucceeded(msg) {
+            alert(msg);
+        }
+    </script>
+    <title>Green Zone</title>
+</head>
+<body style="font-family: Segoe UI;">
+    <div class="col-lg-12">
+        <!-- header-->
+        <p style="font-size: 36px; padding-left: 1%; color: green;"><b>Green Box</b></p>
+        <div class="col-md-12" style="margin-top: 1%;">
+            <!--Input comes here-->
+            <div class="col-md-4">
+                <div class="col-md-6">
+                    <input type="text" id="StartLocation" name="StartLocation" placeholder="Start Location" />
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="Endlocation" name="EndLocation" placeholder="End Location" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-6">
+                    <select id="VehicleType" style="width: 190px;" onchange="return GetSubTypes();">
+                        <option value="0">Select Vehicle Type</option>
+                        <option value="A5549AA3-F0C0-474F-B9E2-19BAE4CB1060">Heavy Trucks</option>
+                        <option value="A2FE7049-8691-4C89-964F-9D106EDC7B6F">Light Trucks</option>
+                        <option value="7FE47AE9-6F07-4407-9F4F-BC1BAF26D816">Small Trucks</option>
+                        <option value="399DF012-42C3-4795-9165-D451AF4BFB96">Very Heavy trucks</option>
+                        <option value="2795AB64-34BC-4F2A-AEB7-F010BC9C6A74">Medium Trucks</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select id="ddlCategory" style="width: 190px;">
+                        <option value="">Select Vehicle Sub Type</option>
+                        <!--<option value="12F489F0-5929-48B0-808F-11E2A85449A0">Freight 1</option>
+                        <option value="2">Freight 2</option>
+                        <option value="3">Freight 3</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-5" style="text-align: center;">
+                    <button type="submit" class="btn btn-default btn-primary" onclick="codeAddress();">Calculate</button>
+                </div>
+                <div class="col-md-7" style="text-align: center;">
+                    <div class="circle" style="margin-left: -25px; margin-top: -10px;" title="Predicted CO2 Emission in your Travel"><span id="TotalCO2"></span></div>
+                </div>
+            </div>
+        </div>
+        <!--To Do Add borders-->
+        <div class="col-md-11" style="margin-top: 2%;">
+            <!-- Div for Maps-->
+            <div class="col-md-6" style="background-color: lightgray;">
+                <div id="map-canvas" class="col-md-12">&nbsp;</div>
+            </div>
+            <div class="col-md-6">
+                <!-- directions steps-->
+                <div class="col-xs-12">
+
+                    <p id="init" style="font-size: 12px; margin-top: 5px;">
+                        <!-- from and to-->
+                        <b><span id="spnFrom"></span></b><b><span id="spnEnd"></span></b>
+                    </p>
+                </div>
+                <div id="directions" class="col-xs-12" style="font-family: Calibri;">
+                    <!-- this will be repeated based on number of Legs taken from the service-->
+                    <!-- tip : use for each above here or use a jquery to populate the div (use (#directions))-->
+                    <!--<div class="col-xs-12">
+                        <div style="font-size:16px;">
+                            Leg 1 : <b>CO2 Emitted : 3kg</b>
+                        </div>
+                        <div style="font-size:13px;">
+                            Leg Starting Place
+                        </div>
+                        <div style="font-size:13px;">
+                            Leg Ending Place
+                        </div>
+                        <div style="font-size:16px;">
+                            Leg 2 : <b>CO2 Emitted : 2kg</b>
+                        </div>
+                        <div style="font-size:13px;">
+                            Leg Starting Place
+                        </div>
+                        <div style="font-size:13px;">
+                            Leg Ending Place
+                        </div>
+                        <div style="font-size:16px;">
+                            Leg 3 : <b>CO2 Emitted : 1kg</b>
+                        </div>
+                        <div style="font-size:13px;">
+                            Leg Starting Place
+                        </div>
+                        <div style="font-size:13px;">
+                            Leg Ending Place
+                        </div>
+                    </div>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
