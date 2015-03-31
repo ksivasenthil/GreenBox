@@ -9,7 +9,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model
 {
     [Table("VehicleType")]
-    public class VehicleType
+    public class VehicleType : BaseEntity
     {
+        [Column]
+        public Guid TransportModeId { get; set; }
+
+        [Column]
+        public string Descrtion { get; set; }
+
+        public virtual TransportMode TransportMode { get; set; }
     }
 }

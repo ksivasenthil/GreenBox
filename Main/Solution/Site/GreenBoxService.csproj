@@ -51,7 +51,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -116,9 +115,9 @@
       <Project>{33717e16-2900-4b8d-b515-a899eb9fd6d3}</Project>
       <Name>GreenStore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{8f9a5140-e3ff-4976-889e-9c457ea9e08a}</Project>
-      <Name>Models</Name>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{a438b929-7bc6-4bbe-9137-67d08a9971a6}</Project>
+      <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{001d0814-5824-4351-9f19-3b36b20115e4}</Project>

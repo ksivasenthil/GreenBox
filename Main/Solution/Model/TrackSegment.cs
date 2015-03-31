@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [Table("VehicleType")]
-    public class TrackSegment
+    [Table("TrackSegment")]
+    public class TrackSegment : BaseEntity
     {
+        [Column("TrackId")]
+        public Guid MyTrackId { get; set; }
+
+        public virtual MyTrack MyTrack { get; set; }
     }
 }

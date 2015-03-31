@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [Table("VehicleType")]
-    public class TransportMode
+    [Table("TransportMode")]
+    public class TransportMode : BaseEntity
     {
+        [Column]
+        public string Description { get; set; }
     }
 }
