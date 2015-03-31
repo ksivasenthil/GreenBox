@@ -13,3 +13,6 @@ C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\
 C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.csprojResolveAssemblyReference.cache
 C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.dll
 C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\obj\Debug\GreenBoxService.csprojResolveAssemblyReference.cache
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\obj\Debug\GreenBoxService.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\obj\Debug\GreenBoxService.pdb
