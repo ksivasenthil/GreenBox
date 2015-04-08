@@ -19,7 +19,7 @@ namespace GreenBoxService
             Method = "POST",
             RequestFormat = WebMessageFormat.Xml,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        decimal[] GetEmission(GetEmissionRequest request);
+        double[] GetEmission(GetEmissionRequest request);
 
         [OperationContract]
         [WebGet(UriTemplate = "GetVehicleType",

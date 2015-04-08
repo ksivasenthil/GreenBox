@@ -10,9 +10,9 @@ namespace GreenBoxService
         public string VehicleSubTypeId { get; set; }
 
         [DataMember]
-        public decimal[] Distance { get; set; }
+        public double[] Distance { get; set; }
 
         [DataMember]
-        public string MapXml{get;set;}
+        public string MapXml { get; set; }
     }
 }

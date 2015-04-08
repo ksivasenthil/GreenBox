@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBoxService", "Site\Gre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A438B929-7BC6-4BBE-9137-67D08A9971A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenStore", "GreenStore\GreenStore.csproj", "{AF463FA9-7B43-400D-BE08-6F8E619DB567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{4BB7C6DD-EF02-481C-8B10-844BB653CCA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A438B929-7BC6-4BBE-9137-67D08A9971A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A438B929-7BC6-4BBE-9137-67D08A9971A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A438B929-7BC6-4BBE-9137-67D08A9971A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF463FA9-7B43-400D-BE08-6F8E619DB567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF463FA9-7B43-400D-BE08-6F8E619DB567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF463FA9-7B43-400D-BE08-6F8E619DB567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF463FA9-7B43-400D-BE08-6F8E619DB567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB7C6DD-EF02-481C-8B10-844BB653CCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB7C6DD-EF02-481C-8B10-844BB653CCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB7C6DD-EF02-481C-8B10-844BB653CCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB7C6DD-EF02-481C-8B10-844BB653CCA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

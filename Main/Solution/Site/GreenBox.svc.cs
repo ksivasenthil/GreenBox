@@ -4,6 +4,7 @@ using Repository;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -18,10 +19,11 @@ namespace GreenBoxService
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public class GreenBox : IGreenBox
     {
-        public decimal[] GetEmission(GetEmissionRequest request)
+        private string CONNECTION_STRING = ConfigurationManager.AppSettings["Battery"];
+        public double[] GetEmission(GetEmissionRequest request)
         {
 
-            Context store = new Context();
+            Battery store = new Battery(CONNECTION_STRING);
             VehicleTypeRepository repo = new VehicleTypeRepository(store);
 
             /*Dictionary<string, object> routeData = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(routeDetails);
@@ -44,10 +46,10 @@ namespace GreenBoxService
              */
             Guid subTypeId = Guid.Parse(request.VehicleSubTypeId);
             VehicleSubType details = repo.GetSubTypeDetails(subTypeId);
-            decimal emissionFactor = details.FuelType.CO2Emissions;
-            decimal mileage = details.Mileage;
+            double emissionFactor = details.FuelType.CO2EmissionFactor;
+            double mileage = details.Mileage;
             //converting the entire leg distance to an array and then performing actions and conveting to an array and then passing this back to client
-            List<decimal> _legDistance = new List<decimal>();
+            List<double> _legDistance = new List<double>();
             for (int i = 0; i < request.Distance.Length; i++)
             {
                 _legDistance.Add((request.Distance[i] / mileage) * emissionFactor);
@@ -60,7 +62,7 @@ namespace GreenBoxService
 
         public List<VehicleType> GetVehicleType()
         {
-            Context store = new Context();
+            Battery store = new Battery(CONNECTION_STRING);
             VehicleTypeRepository RepositoryObj = new VehicleTypeRepository(store);
             return RepositoryObj.GetAll().ToList<VehicleType>();
         }
@@ -69,7 +71,7 @@ namespace GreenBoxService
 
         public List<VehicleSubType> GetVehicleSubType(VehicleSubTypeRequest VehicleType)
         {
-            Context store = new Context();
+            Battery store = new Battery(CONNECTION_STRING);
             VehicleTypeRepository RepositoryObj = new VehicleTypeRepository(store);
             return RepositoryObj.GetSubTypesForAType(VehicleType.VehicleTypeID).ToList<VehicleSubType>();
         }
