@@ -13,13 +13,31 @@ namespace Model
         [Column]
         public string Description { get; set; }
 
-        [Column]
-        public double HeatingValue { get; set; }
+        private Decimal heatingValueDec { get; set; }
 
-        [Column]
-        public double CO2EmissionFactor { get; set; }
+        [NotMapped]
+        public double HeatingValue
+        {
+            get { return (double)heatingValueDec; }
+            set { heatingValueDec = (decimal)value; }
+        }
 
-        [Column]
-        public double ErrorMargin { get; set; }
+        private Decimal co2EmissionFactorDec { get; set; }
+
+        [NotMapped]
+        public double CO2EmissionFactor
+        {
+            get { return (double)co2EmissionFactorDec; }
+            set { co2EmissionFactorDec = (decimal)value; }
+        }
+
+        private Decimal errorMarginDec { get; set; }
+
+        [NotMapped]
+        public double ErrorMargin
+        {
+            get { return (double)errorMarginDec; }
+            set { errorMarginDec = (decimal)value; }
+        }
     }
 }

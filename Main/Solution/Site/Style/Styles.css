@@ -13,6 +13,7 @@
     #map-canvas {
         height: 480px;
     }
+
     #directions {
         height: 400px;
         overflow: auto;
@@ -23,6 +24,7 @@
     #map-canvas {
         height: 480px;
     }
+
     #directions {
         height: 400px;
         overflow: auto;
@@ -33,6 +35,7 @@
     #map-canvas {
         height: 480px;
     }
+
     #directions {
         height: 400px;
         overflow: auto;
@@ -43,6 +46,7 @@
     #map-canvas {
         height: 480px;
     }
+
     #directions {
         height: 400px;
         overflow: auto;
@@ -64,9 +68,9 @@
 }
 
 .circleForSteps {
-        float:left!important;
-        padding-top:20px;
-     width: 60px;
+    float: left !important;
+    padding-top: 20px;
+    width: 60px;
     height: 60px;
     /*border: solid 1px red;
     -moz-border-radius: 25px;
@@ -77,4 +81,8 @@
     vertical-align: central;
     text-align: center;
     padding-top: 15px;
+}
+
+.hideTemplate {
+    display: none;
 }

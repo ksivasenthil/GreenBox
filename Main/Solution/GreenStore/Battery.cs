@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace GreenStore
 {
@@ -104,6 +105,24 @@ namespace GreenStore
         {
             //modelBuilder.Entity<MessagePing>().ToTable("Messages");
             base.OnModelCreating(modelBuilder);
+            bindPrivateProperties(modelBuilder, "mileageDec", "Mileage");
+            bindPrivateProperties(modelBuilder, "heatingValueDec", "HeatingValue");
+            bindPrivateProperties(modelBuilder, "co2EmissionFactorDec", "CO2EmissionFactor");
+            bindPrivateProperties(modelBuilder, "errorMarginDec", "ErrorMargin");
+        }
+        private void bindPrivateProperties(DbModelBuilder modelBuilder, string privateProperty, string publicProperty)
+        {
+            modelBuilder.Types().Configure(c =>
+            {
+                var mileageProps = c.ClrType.GetProperties(BindingFlags.NonPublic
+                                             | BindingFlags.Instance)
+                              .Where(p => p.Name == privateProperty);
+                foreach (var p in mileageProps)
+                {
+                    c.Property(p).HasColumnName(publicProperty);
+                }
+
+            });
         }
         #endregion
     }

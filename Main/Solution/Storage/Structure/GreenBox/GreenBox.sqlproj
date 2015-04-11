@@ -72,14 +72,21 @@
     <Build Include="dbo\Tables\MyTrack.sql" />
     <Build Include="dbo\Tables\MyPath.sql" />
     <Build Include="dbo\Tables\FuelType.sql" />
-    <Compile Include="VehicleTypeData.sql">
+    <None Include="VehicleTypeData.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="TransportModeData.sql">
+    </None>
+    <None Include="TransportModeData.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Local-GreenBox.publish.xml" />
+    <None Include="VehicleSubTypeData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="FuelTypeData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Azure.GreenBox.publish.xml" />
   </ItemGroup>
 </Project>

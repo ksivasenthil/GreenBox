@@ -19,8 +19,14 @@ namespace Model
         [Column]
         public Guid FuelTypeId { get; set; }
 
-        [Column]
-        public double Mileage { get; set; }
+        private Decimal mileageDec { get; set; }
+
+        [NotMapped]
+        public double Mileage
+        {
+            get { return (double)mileageDec; }
+            set { mileageDec = (decimal)value; }
+        }
 
         public virtual VehicleType VehicleType { get; set; }
 
