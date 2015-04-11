@@ -13,6 +13,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>-->
     <script src="Scripts/json2xml.js"></script>
+    <script src="Scripts/ApiCaller.js" type="text/javascript"></script>
     <script type="text/javascript">
 
         var directionsDisplay;
@@ -21,7 +22,7 @@
         var totalCO2 = 0;
         var emissionValue = 0;
         var directions = "";
-        var individualLeg=[];
+        var individualLeg = [];
 
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
@@ -59,7 +60,7 @@
                     var parsedJson = $.parseJSON(obj);
 
                     //var parsedXML = $.parseXML("https://maps.googleapis.com/maps/api/directions/xml?origin=" + from + "&destination=" + to + "&key=AIzaSyAnyHG-JUH6TlTL1F3Oi_CemFIlCXFCro0");
-                    var legDistance=[];
+                    var legDistance = [];
                     //sendJSON(obj);
                     //var getJson = getJSONFromService();
                     $.each(parsedJson, function (index, value) {
@@ -86,15 +87,15 @@
                     //    }
                     //});
 
-                    
+
                 }
             });
         }
 
         //total distance, from, to, leg distance, type, subtype
-        function getCO2Emissions(result,vehicleSubType, legDistance) {
+        function getCO2Emissions(result, vehicleSubType, legDistance) {
             //var _distanceAsArray = legDistance.split(" ");
-            var _multiplicationFactor=1;
+            var _multiplicationFactor = 1;
             var _newArray = "";
             var _test = legDistance.join();
             _test = _test.replace(/ /g, ',');
@@ -104,10 +105,10 @@
                     if (_test[index + 1] == "m") {
                         _multiplicationFactor = 0.001;
                     }
-                    _newArray += "<decimal xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\">" + value*_multiplicationFactor + "</decimal>";
+                    _newArray += "<double xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\">" + value * _multiplicationFactor + "</double>";
                 }
             });
-            $.when(CallService(result,vehicleSubType, _newArray,successCallback)).done(function (val) {
+            $.when(CallService(result, vehicleSubType, _newArray, successCallback)).done(function (val) {
                 emissionValue = val;
                 //console.log("val:" + emissionValue);
                 //console.log(emissionValue);
@@ -120,15 +121,14 @@
             //    return "<div class=\"circleForSteps\"><b>" + currentValue + "</b></div>";
             //});
         }
-        function successCallback(result,ServerResponse)
-        {
+        function successCallback(result, ServerResponse) {
             var distances = [];
 
             $.each($(ServerResponse).children(), function (index, value) {
                 $.each($(value).children(), function (index1, value1) {
 
                     distances.push($(value1).text());
-                    
+
                     console.log("console:" + $(value1).text());
                     console.log("A");
                 });
@@ -272,7 +272,7 @@
             else { }
         }
 
-        function CallService(result,vehicleSubType, legDistance,callback) {
+        function CallService(result, vehicleSubType, legDistance, callback) {
             $.ajax({
                 type: "POST", //GET or POST or PUT or DELETE verb
                 url: "http://localhost:51745/GreenBox.svc/GetEmission", // Location of the service
@@ -283,7 +283,7 @@
                 success: function (response) {//On Successfull service call
                     $xmlObject = $(response);
                     callback(result, $xmlObject);
-                    
+
                     //emissionValue = $xmlObject.find('decimal').text();
                 },
                 //complete: function (response) {

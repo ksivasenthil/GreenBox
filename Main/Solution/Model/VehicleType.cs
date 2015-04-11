@@ -15,7 +15,7 @@ namespace Model
         public Guid TransportModeId { get; set; }
 
         [Column]
-        public string Descrtion { get; set; }
+        public string Description { get; set; }
 
         public virtual TransportMode TransportMode { get; set; }
     }

@@ -1,0 +1,32 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[FuelType] (Table)
+       [dbo].[MyPath] (Table)
+       [dbo].[MyTrack] (Table)
+       [dbo].[PathLeg] (Table)
+       [dbo].[PathStep] (Table)
+       [dbo].[TrackPoint] (Table)
+       [dbo].[TrackSegment] (Table)
+       [dbo].[TransportMode] (Table)
+       [dbo].[VehicleSubType] (Table)
+       [dbo].[VehicleType] (Table)
+       Foreign Key: unnamed constraint on [dbo].[MyTrack] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[PathLeg] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[PathStep] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[TrackPoint] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[TrackSegment] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[VehicleSubType] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[VehicleSubType] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[VehicleType] (Foreign Key)
+
+** Supporting actions

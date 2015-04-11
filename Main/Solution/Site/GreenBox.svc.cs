@@ -19,12 +19,11 @@ namespace GreenBoxService
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public class GreenBox : IGreenBox
     {
-        private string CONNECTION_STRING = ConfigurationManager.AppSettings["Battery"];
+        private string CONNECTION_STRING = ConfigurationManager.AppSettings["ACTIVE_CONFIGURATION"];
         public double[] GetEmission(GetEmissionRequest request)
         {
 
-            Battery store = new Battery(CONNECTION_STRING);
-            VehicleTypeRepository repo = new VehicleTypeRepository(store);
+            VehicleTypeRepository repo = new VehicleTypeRepository(CONNECTION_STRING);
 
             /*Dictionary<string, object> routeData = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(routeDetails);
             Dictionary<string, object> legs = (routeData["routes"] as Dictionary<string, object>)["legs"] as Dictionary<string, object>;
@@ -62,8 +61,7 @@ namespace GreenBoxService
 
         public List<VehicleType> GetVehicleType()
         {
-            Battery store = new Battery(CONNECTION_STRING);
-            VehicleTypeRepository RepositoryObj = new VehicleTypeRepository(store);
+            VehicleTypeRepository RepositoryObj = new VehicleTypeRepository(CONNECTION_STRING);
             return RepositoryObj.GetAll().ToList<VehicleType>();
         }
 
@@ -71,8 +69,7 @@ namespace GreenBoxService
 
         public List<VehicleSubType> GetVehicleSubType(VehicleSubTypeRequest VehicleType)
         {
-            Battery store = new Battery(CONNECTION_STRING);
-            VehicleTypeRepository RepositoryObj = new VehicleTypeRepository(store);
+            VehicleTypeRepository RepositoryObj = new VehicleTypeRepository(CONNECTION_STRING);
             return RepositoryObj.GetSubTypesForAType(VehicleType.VehicleTypeID).ToList<VehicleSubType>();
         }
     }

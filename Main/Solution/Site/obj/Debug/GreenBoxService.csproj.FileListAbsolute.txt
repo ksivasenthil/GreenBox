@@ -13,6 +13,27 @@ C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\
 C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.csprojResolveAssemblyReference.cache
 C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.dll
 C:\Users\SK00352995\Documents\GreenBox\Service\GreenBoxSolution\GreenBoxService\obj\Debug\GreenBoxService.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\GreenBoxService.dll.config
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\GreenBoxService.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\GreenBoxService.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\EntityFramework.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\EntityFramework.SqlServer.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\GreenStore.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\Model.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\Repository.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\GreenStore.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\Model.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\Repository.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\EntityFramework.xml
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\EntityFramework.SqlServer.xml
 C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\obj\Debug\GreenBoxService.csprojResolveAssemblyReference.cache
 C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\obj\Debug\GreenBoxService.dll
 C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\obj\Debug\GreenBoxService.pdb
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\Newtonsoft.Json.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\System.Net.Http.Formatting.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\System.Web.Http.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\System.Web.Http.WebHost.dll
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\Newtonsoft.Json.xml
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\System.Net.Http.Formatting.xml
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\System.Web.Http.xml
+C:\Users\Siva Senthil\Documents\GitHub\GreenBox\Main\Solution\Site\bin\System.Web.Http.WebHost.xml
