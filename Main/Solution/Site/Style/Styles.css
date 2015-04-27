@@ -69,7 +69,6 @@
 
 .circleForSteps {
     float: left !important;
-    padding-top: 20px;
     width: 60px;
     height: 60px;
     /*border: solid 1px red;
@@ -80,9 +79,17 @@
     background-size: 60px 60px;
     vertical-align: central;
     text-align: center;
-    padding-top: 15px;
 }
 
 .hideTemplate {
     display: none;
+}
+
+.verticalMargins {
+    margin-top: 3px;
+    vertical-align:middle;
+}
+
+.useFullWidth {
+    width: 100%;
 }

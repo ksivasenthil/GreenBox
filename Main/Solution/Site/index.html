@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="Scripts/jquery-1.11.1.min.js"></script>
     <script src="Scripts/html5shiv.js"></script>
-    <script src="Scripts/respond.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
     <link href="Style/bootstrap.min.css" rel="stylesheet" />
     <link href="Style/Styles.css" rel="stylesheet" />
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="Scripts/json2xml.js"></script>
     <script src="Scripts/mustache.min.js" type="text/javascript"></script>
     <script src="Scripts/ApiCaller.js" type="text/javascript"></script>
+    <script src="Scripts/respond.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
     <script type="text/javascript">
 
         var directionsDisplay;
@@ -226,41 +226,37 @@
     </script>
     <title>Green Zone</title>
 </head>
-<body style="font-family: Segoe UI;">
+<body class="container-fluid" style="font-family: Segoe UI;">
     <div class="col-lg-12">
         <!-- header-->
         <p style="font-size: 36px; padding-left: 1%; color: green;"><b>Green Box</b></p>
-        <div class="col-md-12" style="margin-top: 1%;">
+        <div class="row">
             <!--Input comes here-->
-            <div class="col-md-4">
-                <div class="col-md-6">
-                    <input type="text" id="StartLocation" name="StartLocation" placeholder="Start Location" />
-                </div>
-                <div class="col-md-6">
-                    <input type="text" id="Endlocation" name="EndLocation" placeholder="End Location" />
-                </div>
+            <div class="col-md-2 verticalMargins">
+                <input type="text" id="StartLocation" name="StartLocation" placeholder="Start Location" class="useFullWidth" />
             </div>
-            <div class="col-md-4">
-                <div class="col-md-6">
-                    <select id="vt" style="width: 190px;"></select>
-                </div>
-                <div class="col-md-6">
-                    <select id="svt" style="width: 190px;"></select>
-                </div>
+            <div class="col-md-2 verticalMargins">
+                <input type="text" id="Endlocation" name="EndLocation" placeholder="End Location" class="useFullWidth" />
             </div>
-            <div class="col-md-4">
-                <div class="col-md-5" style="text-align: center;">
-                    <button type="submit" class="btn btn-default btn-primary" onclick="codeAddress();">Calculate</button>
-                </div>
-                <div class="col-md-7" style="text-align: center;">
-                    <div class="circle" style="margin-left: -25px; margin-top: -10px;" title="Predicted CO2 Emission in your Travel"><span id="TotalCO2"></span></div>
-                </div>
+            <div class="col-md-2 verticalMargins">
+                <select id="vt" class="useFullWidth"></select>
+            </div>
+            <div class="col-md-2 verticalMargins">
+                <select id="svt" class="useFullWidth"></select>
+            </div>
+            <div class="col-md-2 verticalMargins">
+                <button type="submit" class="btn btn-default btn-primary" onclick="codeAddress();">Calculate</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 verticalMargins">
+                <div class="circle" title="Predicted CO2 Emission in your Travel"><span id="TotalCO2"></span></div>
             </div>
         </div>
         <!--To Do Add borders-->
-        <div class="col-md-11" style="margin-top: 2%;">
+        <div class="row verticalMargins" >
             <!-- Div for Maps-->
-            <div class="col-md-6" style="background-color: lightgray;">
+            <div class="col-md-2" style="background-color: lightgray;">
                 <div id="map-canvas" class="col-md-12">&nbsp;</div>
             </div>
             <div class="col-md-6">
