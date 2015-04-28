@@ -79,6 +79,7 @@
     background-size: 60px 60px;
     vertical-align: central;
     text-align: center;
+    padding-top: 18px;
 }
 
 .hideTemplate {
@@ -92,4 +93,10 @@
 
 .useFullWidth {
     width: 100%;
+}
+
+.mapStyle {
+    background-color: lightgray;
+    width: 97%;
+    border: dotted 1px groove black;
 }
