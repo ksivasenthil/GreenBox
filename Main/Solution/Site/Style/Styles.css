@@ -88,7 +88,7 @@
 
 .verticalMargins {
     margin-top: 3px;
-    vertical-align:middle;
+    vertical-align: middle;
 }
 
 .useFullWidth {
@@ -99,4 +99,9 @@
     background-color: lightgray;
     width: 97%;
     border: dotted 1px groove black;
+}
+
+.navigationInstructions {
+    margin-left: 6px;
+    display: block;
 }
